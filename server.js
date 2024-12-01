@@ -9,7 +9,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB connection URI and database name
-const mongoUri = process.env.MONGO_URI;
+const mongoUri = 'mongodb+srv://admin:U%409bt4jJ3iLhL_2@cluster0.6yrgc.mongodb.net/Week_menu?retryWrites=true&w=majority';
 const dbName = process.env.DB_NAME;
 
 let db;
