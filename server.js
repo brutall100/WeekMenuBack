@@ -14,8 +14,6 @@ const dbName = process.env.DB_NAME;
 
 let db;
 const client = new MongoClient(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
   tls: true,  // Enable TLS
 });
 
