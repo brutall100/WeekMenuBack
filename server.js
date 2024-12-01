@@ -8,27 +8,23 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// MongoDB connection URI and database name
-const mongoUri = 'mongodb+srv://admin:U%409bt4jJ3iLhL_2@cluster0.6yrgc.mongodb.net/Week_menu?retryWrites=true&w=majority';
+const mongoUri = process.env.MONGO_URI;
 const dbName = process.env.DB_NAME;
 
 let db;
-const client = new MongoClient(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  tls: true, // Ensure TLS is enabled (it should be enabled by default)
-});
+const client = new MongoClient(mongoUri);
 
 (async function connectToDB() {
   try {
     await client.connect();
     db = client.db(dbName);
-    console.log("Connected to MongoDB successfully");
+    console.log("Connected to MongoDB");
   } catch (err) {
     console.error("Failed to connect to MongoDB", err);
     process.exit(1);
   }
 })();
+
 // Route handlers
 app.get("/categories", async (req, res) => {
   try {
