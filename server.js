@@ -8,16 +8,17 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Get MongoDB URI and database name from environment variables
+// MongoDB connection URI and database name
 const mongoUri = process.env.MONGO_URI;
 const dbName = process.env.DB_NAME;
 
 let db;
 const client = new MongoClient(mongoUri, {
-  tls: true,  // Enable TLS
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  tls: true, // Ensure TLS is enabled (it should be enabled by default)
 });
 
-// Function to connect to MongoDB
 (async function connectToDB() {
   try {
     await client.connect();
@@ -28,7 +29,6 @@ const client = new MongoClient(mongoUri, {
     process.exit(1);
   }
 })();
-
 // Route handlers
 app.get("/categories", async (req, res) => {
   try {
