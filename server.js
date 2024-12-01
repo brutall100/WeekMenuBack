@@ -8,17 +8,23 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Get MongoDB URI and database name from environment variables
 const mongoUri = process.env.MONGO_URI;
 const dbName = process.env.DB_NAME;
 
 let db;
-const client = new MongoClient(mongoUri);
+const client = new MongoClient(mongoUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  tls: true,  // Enable TLS
+});
 
+// Function to connect to MongoDB
 (async function connectToDB() {
   try {
     await client.connect();
     db = client.db(dbName);
-    console.log("Connected to MongoDB");
+    console.log("Connected to MongoDB successfully");
   } catch (err) {
     console.error("Failed to connect to MongoDB", err);
     process.exit(1);
