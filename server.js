@@ -331,11 +331,6 @@ app.delete("/meals/:id", async (req, res) => {
   }
 });
 
-
-
-
-
-
 app.get("/ingredients", async (req, res) => {
   try {
     const ingredients = await db.collection("ingredients").find().toArray();
